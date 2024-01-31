@@ -18,9 +18,12 @@ class CreateNotesTable extends Migration
             $table->string('title');
             $table->text('content');
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('category_id')->nullable();
             $table->timestamps();
 
+            // fk constraints
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            // $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null');
         });
     }
 

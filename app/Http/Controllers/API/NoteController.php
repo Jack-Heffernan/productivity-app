@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Note;
 
@@ -20,12 +21,12 @@ public function store(Request $request)
         'user_id' => 'required|exists:users,id',
     ]);
 
-    Note::create([
+    $note = Note::create([
         'title' => $request->input('title'),
         'content' => $request->input('content'),
         'user_id' => $request->input('user_id'),
     ]);
 
-    return redirect()->route('create')->with('success', 'Note created successfully!');
+    return response()->json(['message' => 'Note created successfully', 'data' => $note], 201);
 }
 }
