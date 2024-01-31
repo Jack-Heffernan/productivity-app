@@ -127,4 +127,12 @@ class AuthController extends Controller
         //     ], 500);
         // }
     }
+
+    // app/Http/Controllers/API/AuthController.php
+
+public function showLoginForm()
+{
+    return view('auth.login');
+}
+
 }
