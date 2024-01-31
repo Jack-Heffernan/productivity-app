@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\NoteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,3 +20,11 @@ Route::get('/', function () {
 });
 
 Route::get('login', [AuthController::class, 'showLoginForm'])->name('login')->middleware('guest');
+Route::post('login', [AuthController::class, 'login']);
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('notes/create', [NoteController::class, 'create'])->name('create');
+    Route::post('notes', [NoteController::class, 'store'])->name('notes.store');
+});
+
+

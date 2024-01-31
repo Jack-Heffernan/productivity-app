@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <!-- Add your stylesheets, scripts, etc. here -->
 </head>
 <body>
     <div class="container">
