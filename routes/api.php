@@ -33,3 +33,5 @@ Route::middleware('auth:sanctum')->group(function () {
 //this is the protected route group for the login and logout
 
 Route::post('/notes', [NoteController::class, 'store']);
+
+Route::post('/register', [AuthController::class, 'register']);
