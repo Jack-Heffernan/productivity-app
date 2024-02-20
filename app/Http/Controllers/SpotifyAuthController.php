@@ -13,7 +13,6 @@ class SpotifyAuthController extends Controller
         $scope = "streaming user-read-email user-read-private";
         $state = Str::random(16);
 
-        
         $authUrl = 'https://accounts.spotify.com/authorize/?' . http_build_query([
             'response_type' => 'code',
             'client_id' => config('services.spotify.client_id'),
@@ -27,9 +26,9 @@ class SpotifyAuthController extends Controller
 
     public function callback(Request $request)
     {
-        $code = $request->query('code');
 
-        
+        $code = $request->code;
+
         $response = Http::asForm()->post('https://accounts.spotify.com/api/token', [
             'grant_type' => 'authorization_code',
             'code' => $code,
@@ -38,24 +37,21 @@ class SpotifyAuthController extends Controller
             'client_secret' => config('services.spotify.client_secret'),
         ]);
 
-        
         if ($response->successful()) {
             $access_token = $response->json('access_token');
-            
+
             session(['spotify_access_token' => $access_token]);
 
-            
             return redirect()->route('webplayback')->with('success', 'Authenticated successfully.');
         } else {
-            
-            return redirect()->route('login')->with('error', 'Authentication failed.');
+            return redirect()->route('/')->with('error', 'Authentication failed.');
         }
     }
 
     public function token()
     {
         $access_token = session('spotify_access_token');
-
+        
         if ($access_token) {
             return response()->json(['access_token' => $access_token]);
         } else {
@@ -63,4 +59,5 @@ class SpotifyAuthController extends Controller
         }
     }
 }
+
 
