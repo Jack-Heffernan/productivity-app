@@ -67,5 +67,18 @@ public function store(Request $request)
         return response()->json(['message' => 'Note updated successfully', 'data' => $note], 200);
     }
 
+    public function destroy($id)
+    {
+        $note = Note::find($id);
+
+        if (!$note) {
+            return response()->json(['message' => 'Note not found'], 404);
+        }
+
+        $note->delete();
+
+        return response()->json(['message' => 'Note deleted successfully'], 200);
+    }
+
 }
 
