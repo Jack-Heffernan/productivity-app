@@ -16,6 +16,10 @@ use App\Http\Controllers\API\NoteController;
 |
 */
 
+Route::get('/notes', [NoteController::class, 'index']);
+Route::post('/notes', [NoteController::class, 'store']);
+Route::get('/notes/{id}', [NoteController::class, 'show']);
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -32,6 +36,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
 //this is the protected route group for the login and logout
 
-Route::post('/notes', [NoteController::class, 'store']);
+
 
 Route::post('/register', [AuthController::class, 'register']);

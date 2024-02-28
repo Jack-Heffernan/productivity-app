@@ -29,4 +29,23 @@ public function store(Request $request)
 
     return response()->json(['message' => 'Note created successfully', 'data' => $note], 201);
 }
+
+public function show($id)
+{
+    $note = Note::find($id);
+
+    if (!$note) {
+        return response()->json(['message' => 'Note not found'], 404);
+    }
+
+    return response()->json(['message' => 'Note retrieved successfully', 'data' => $note], 200);
 }
+
+public function index()
+{
+    $notes = Note::all();
+    return response()->json($notes);
+}
+
+}
+
