@@ -30,6 +30,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/auth/user', [AuthController::class, 'logout']);
     Route::post('/notes', [NoteController::class, 'store']);
     Route::get('/notes', [NoteController::class, 'index']);
+    Route::put('/notes', [NoteController::class, 'update']);
+    Route::delete('/notes', [NoteController::class, 'destroy']);
+
 
 
 });
