@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -13,6 +13,9 @@ class CategoriesController extends Controller
 {
     public function index()
     {
+
+        $categories = Categories::all();
+
         return response()->json([
             'message' => 'success',
             'data' => Categories::where('user_id', '=', Auth::id())->get()

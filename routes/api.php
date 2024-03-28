@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\NoteController;
+use App\Http\Controllers\API\CategoriesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,9 +30,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/auth/user', [AuthController::class, 'user']);
     Route::get('/auth/user', [AuthController::class, 'logout']);
     Route::post('/notes', [NoteController::class, 'store']);
+    Route::get('/notes/{id}', [NoteController::class, 'show']);
     Route::get('/notes', [NoteController::class, 'index']);
-    Route::put('/notes', [NoteController::class, 'update']);
-    Route::delete('/notes', [NoteController::class, 'destroy']);
+    Route::put('/notes/{id}', [NoteController::class, 'update']);
+    Route::delete('/notes/{id}', [NoteController::class, 'destroy']);
+    Route::get('/categories', [CategoriesController::class, 'index']);
 
 
 

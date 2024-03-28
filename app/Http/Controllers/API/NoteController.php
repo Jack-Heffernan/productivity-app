@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use App\Models\Note;
 use Validator;
 use Auth;
@@ -69,11 +70,11 @@ class NoteController extends Controller
         if (is_null($note)) {
             return response()->json(['message' => 'Note not found'], 404);
         }
-        else {
-            $note->load('notes');
-            $statusMsg = 'success';
-            $statusCode = 200;
-          }
+        // else {
+        //     // $note->load('notes');
+        //     $statusMsg = 'success';
+        //     $statusCode = 200;
+        //   }
         return response()->json(['message' => 'Note found', 'data' => $note], 200);
     }
 
@@ -103,13 +104,18 @@ class NoteController extends Controller
             422);
         }
 
-        $note = Note::update([
-            'title' => $request->input('title'),
-            'content' => $request->input('content'),
-            'user_id' => Auth::id(),
-        ]);
+        $note->title = $request->input('title');
+        $note->content = $request->input('content');
+        $note->user_id = Auth::id();
+        $note->save();
 
-        $note->update($request->all());
+        // $note = Note::update([
+        //     'title' => $request->input('title'),
+        //     'content' => $request->input('content'),
+        //     'user_id' => Auth::id(),
+        // ]);
+
+        // $note->update($request->all());
         return response()->json(['message' => 'Note updated successfully', 'data' => $note], 200);
     }
 
